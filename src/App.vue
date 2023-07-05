@@ -2,59 +2,44 @@
   <div class="w-[100vw] h-[100vh] bg-[#0d1116] flex items-center justify-center">
     <div class="flex flex-col items-center justify-center">
       <Heading :title="heading" />
-      <TodoInput :todo-lists="todoLists" @handleSubmit="handleSubmit" />
+      <TodoInput @handleSubmit="handleSubmit" />
       <TodoList :todo-lists="todoLists" @handleFilter="handleFilter" />
       <Toaster v-if="toaster" :message="toasterMessage" />
     </div>
   </div>
 </template>
 
-<script>
-import Heading from './components/Heading.vue';
-import Toaster from './components/Toaster.vue';
-import TodoInput from './components/TodoInput.vue';
-import TodoList from './components/TodoList.vue';
+<script setup>
+import Heading from '@/components/HeadingComponent.vue'
+import Toaster from '@/components/ToasterComponent.vue';
+import TodoInput from '@/components/TodoInputComponent.vue';
+import TodoList from '@/components/TodoListComponent.vue';
+import { ref } from 'vue';
 
-export default {
-  name: 'App',
-  components: {
-    Heading,
-    TodoInput,
-    TodoList,
-    Toaster
-  },
-  data() {
-    return {
-      heading: 'Todo App',
-      todoLists: [],
-      toaster: false,
-      toasterMessage: 'List updated!',
-      timeOut: null
-    }
-  },
-  methods: {
-    handleSubmit(input) {
-      this.todoLists.push(input);
-    },
-    handleFilter(index) {
-      console.log(index)
-      this.todoLists = this.todoLists.filter((_, id) => id !== index)
-    }
-  },
-  watch: {
-    todoLists: {
-      handler() {
-        this.toaster = true
-        if (this.timeOut) {
-          clearTimeout(this.timeOut);
-        }
-        this.timeOut = setTimeout(() => {
-          this.toaster = false
-        }, 1000)
-      },
-      deep: true
-    }
+const heading = ref('Todo App');
+const todoLists = ref([]);
+const toaster = ref(false)
+const toasterMessage = ref('List updated!')
+const timeOut = ref(null);
+
+function handleToaster() {
+  toaster.value = true;
+  if (timeOut.value) {
+    clearTimeout(timeOut.value)
   }
+  timeOut.value = setTimeout(() => {
+    toaster.value = false;
+  }, 1000);
+}
+
+function handleSubmit(input) {
+  todoLists.value.push(input);
+  handleToaster();
+}
+
+function handleFilter(index) {
+  todoLists.value = todoLists.value.filter((_, id) => id !== index);
+  handleToaster();
 }
 </script>
 
