@@ -1,46 +1,21 @@
 <template>
-  <div class="w-[100vw] h-[100vh] bg-[#0d1116] flex items-center justify-center">
+  <div class="bg-[#0d1116] w-[100vw] flex items-center justify-center py-4">
+    <router-link to="/todo-app" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+    :class="{'dark:bg-gray-600': $route.path === '/todo-app'}"
+    >Todo App
+    </router-link>
+    <router-link to="/about-us" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+    :class="{ 'dark:bg-gray-600': $route.path === '/about-us' }"
+    >About</router-link>
+  </div>
+  <div class="w-[100vw] bg-[#0d1116] h-[100vh] flex items-center justify-center">
     <div class="flex flex-col items-center justify-center">
-      <Heading :title="heading" />
-      <TodoInput @handleSubmit="handleSubmit" />
-      <TodoList :todo-lists="todoLists" @handleFilter="handleFilter" />
-      <Toaster v-if="toaster" :message="toasterMessage" />
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Heading from '@/components/HeadingComponent.vue'
-import Toaster from '@/components/ToasterComponent.vue';
-import TodoInput from '@/components/TodoInputComponent.vue';
-import TodoList from '@/components/TodoListComponent.vue';
-import { Ref, ref } from 'vue';
-
-const heading: Ref<string> = ref('Todo App');
-const todoLists: Ref<string[]> = ref([]);
-const toaster: Ref<boolean> = ref(false)
-const toasterMessage: Ref<string> = ref('List updated!')
-const timeOut: Ref<any> = ref(null);
-
-function handleToaster() {
-  toaster.value = true;
-  if (timeOut.value) {
-    clearTimeout(timeOut.value)
-  }
-  timeOut.value = setTimeout(() => {
-    toaster.value = false;
-  }, 1000);
-}
-
-function handleSubmit(input: string) {
-  todoLists.value.push(input);
-  handleToaster();
-}
-
-function handleFilter(index: number) {
-  todoLists.value = todoLists.value.filter((_, id: number) => id !== index);
-  handleToaster();
-}
 </script>
 
 <style>
