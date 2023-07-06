@@ -8,12 +8,14 @@
   </div>
 </template>
 
-<script setup>
-import { ref, defineEmits } from "vue";
+<script setup lang="ts">
+import { Ref, ref } from "vue";
 
-const emits = defineEmits(['handleSubmit'])
+const emits = defineEmits<{
+  handleSubmit: [input: string]
+}>();
 
-const todoInputItem = ref('');
+const todoInputItem: Ref<string> = ref('');
 
 function handleFormSubmit() {
   emits('handleSubmit', todoInputItem.value);

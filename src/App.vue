@@ -9,18 +9,18 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Heading from '@/components/HeadingComponent.vue'
 import Toaster from '@/components/ToasterComponent.vue';
 import TodoInput from '@/components/TodoInputComponent.vue';
 import TodoList from '@/components/TodoListComponent.vue';
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 
-const heading = ref('Todo App');
-const todoLists = ref([]);
-const toaster = ref(false)
-const toasterMessage = ref('List updated!')
-const timeOut = ref(null);
+const heading: Ref<string> = ref('Todo App');
+const todoLists: Ref<string[]> = ref([]);
+const toaster: Ref<boolean> = ref(false)
+const toasterMessage: Ref<string> = ref('List updated!')
+const timeOut: Ref<any> = ref(null);
 
 function handleToaster() {
   toaster.value = true;
@@ -32,13 +32,13 @@ function handleToaster() {
   }, 1000);
 }
 
-function handleSubmit(input) {
+function handleSubmit(input: string) {
   todoLists.value.push(input);
   handleToaster();
 }
 
-function handleFilter(index) {
-  todoLists.value = todoLists.value.filter((_, id) => id !== index);
+function handleFilter(index: number) {
+  todoLists.value = todoLists.value.filter((_, id: number) => id !== index);
   handleToaster();
 }
 </script>

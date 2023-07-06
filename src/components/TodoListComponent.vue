@@ -7,20 +7,24 @@
     <div v-for="(item, index) in props.todoLists" :key="index"
       class="hover:scale-[1.01] cursor-pointer bg-gray-800 p-2 rounded px-4 m-2 mx-2 flex items-center justify-between shadow-lg">
       <span>{{ item }}</span>
-      <button class="bg-gray-700 w-[25px] rounded-full flex item-center justify-center hover:bg-gray-600 transition duration-20 delay-10 hover:delay-0" @click="handleClickCancel(index)" >x</button>
+      <button
+        class="bg-gray-700 w-[25px] rounded-full flex item-center justify-center hover:bg-gray-600 transition duration-20 delay-10 hover:delay-0"
+        @click="handleClickCancel(index)">x</button>
     </div>
   </div>
 </template>
 
-<script setup>
-import { defineProps, defineEmits } from 'vue';
+<script setup lang="ts">
+interface Props {
+  todoLists: string[]
+}
+const props = defineProps<Props>();
 
-const props = defineProps({
-  todoLists: Array
-})
-const emits = defineEmits(['handleFilter'])
+const emits = defineEmits<{
+  handleFilter: [index: number]
+}>();
 
-function handleClickCancel(index) {
-  emits('handleFilter', index)
+function handleClickCancel(index: number) {
+  emits('handleFilter', (index as number))
 }
 </script>

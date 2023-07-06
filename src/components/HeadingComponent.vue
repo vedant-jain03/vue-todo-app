@@ -4,10 +4,10 @@
   </div>
 </template>
 
-<script setup>
-import { defineProps } from 'vue';
-
-const props = defineProps({
+<script setup lang="ts">
+interface Props {
   title: String
-})
+}
+
+const props = defineProps<Props>();
 </script>
