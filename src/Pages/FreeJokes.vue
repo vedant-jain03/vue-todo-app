@@ -15,14 +15,15 @@
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import fetchJokes from '@/composables/fetchJokes';
+import useFetchJokes from '@/composables/useFetchJokes';
 import LoadingScreen from '@/components/LoadingScreen.vue';
 import { onMounted } from 'vue';
 
-const { isLoading, jokeText, fetchNewJokes } = fetchJokes();
+const { isLoading, jokeText, fetchNewJokes } = useFetchJokes();
 
 onMounted(() => {
   fetchNewJokes();
 })
 
 </script>
+@/composables/useFetchJokes
