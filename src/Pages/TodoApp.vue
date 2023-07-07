@@ -42,5 +42,3 @@ function handleFilter(index: number) {
   handleToaster();
 }
 </script>
-
-<style lang="scss" scoped></style>
