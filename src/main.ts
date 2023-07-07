@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './index.css'
-import TodoApp from '@/pages/TodoApp.vue'
-import FreeJokes from '@/pages/FreeJokes.vue'
-import AboutPage from '@/pages/AboutPage.vue'
+import FreeJokes from './pages/FreeJokes.vue'
+import AboutPage from './pages/AboutPage.vue'
+import TodoApp from './pages/TodoApp.vue';
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
